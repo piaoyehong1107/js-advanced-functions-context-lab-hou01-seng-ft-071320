@@ -68,7 +68,7 @@ let calculatePayroll=function(arr){
   arr.forEach(ele=>{
     ele.timeInEvents.forEach(e=>{
       let stp=e.date
-      total+=wagesEarnedOnDate.call(stp)
+      total+=wagesEarnedOnDate.apply(stp)
     })
   })
   return total
