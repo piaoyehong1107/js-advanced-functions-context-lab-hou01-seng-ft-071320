@@ -38,28 +38,40 @@ return this
 }
 
 let hoursWorkedOnDate=function(stp){
- return (this.timeOutEvents[0].hour-this.timeInEvents[0].hour)/100
-}
+  let rightOne = this.timeInEvents.find(e=>{return e.date==stp})
+  let i= this.timeInEvents.indexOf(rightOne)
+  return (this.timeOutEvents[i].hour-this.timeInEvents[i].hour)/100
+  }
+
 
 let wagesEarnedOnDate=function(stp){
  let hours= hoursWorkedOnDate.call(this,stp)
 return hours * this.payPerHour
 }
 
+
 let allWagesFor=function(){
- 
+ let total=0
+  for(let i=0; i< this.timeInEvents.length; i++){
+    let stp=`${this.timeInEvents[i].date}`
+    total+=wagesEarnedOnDate.call(this,stp)
+    }
+    return total
+}
+
+let findEmployeeByFirstName=function(arr, firstName){
+  return arr.find(ele=>{return ele.firstName===firstName})
+}
+
+let calculatePayroll=function(arr){
+  let total=0
+  arr.forEach(ele=>{
+    ele.timeInEvents.forEach(e=>{
+      let stp=e.date
+      total+=wagesEarnedOnDate.call(stp)
+    })
+  })
+  return total
 }
 
 
-
-// let allWagesFor = function () {
-//     let eligibleDates = this.timeInEvents.map(function (e) {
-//         return e.date
-//     })
-
-//     let payable = eligibleDates.reduce(function (memo, d) {
-//         return memo + wagesEarnedOnDate.call(this, d)
-//     }.bind(this), 0) // <== Hm, why did we need to add bind() there? We'll discuss soon!
-
-//     return payable
-// }
