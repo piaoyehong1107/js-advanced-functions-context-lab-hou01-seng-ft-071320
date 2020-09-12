@@ -66,10 +66,7 @@ let findEmployeeByFirstName=function(arr, firstName){
 let calculatePayroll=function(arr){
   let total=0
   arr.forEach(ele=>{
-    ele.timeInEvents.forEach(e=>{
-      let stp=e.date
-      total+=wagesEarnedOnDate.apply(stp)
-    })
+     total+=allWagesFor.call(ele)
   })
   return total
 }
